@@ -1,0 +1,126 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url('C:\Users\HP\OneDrive\Desktop\REACT\xsi0\src\fundal4.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.game {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 2px solid #e91e63;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  max-width: 800px; 
+}
+
+.game-board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+
+.board-row {
+  display: flex;
+}
+
+.square {
+  background-color: #fce4ec;
+  color: #880e4f;
+  font-size: 24px;
+  font-weight: bold;
+  border: 2px solid #e91e63;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 70px; 
+  height: 70px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 4px;
+  border-radius: 6px;
+}
+
+.square:hover {
+  background-color: #f8bbd0;
+}
+
+.winning-square {
+  background-color: #af4c72 !important;
+  color: white !important;
+}
+
+.status {
+  font-size: 20px;
+  font-weight: bold;
+  color: #e91e63;
+  margin-bottom: 10px;
+}
+
+.game-info ol {
+  padding-left: 20px;
+}
+
+.game-info button {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: #e91e63;
+  transition: color 0.3s ease;
+  
+}
+
+.game-info button:hover {
+  color: #ad1457;
+}
+
+.game-info button.restart {
+  background-color: #e91e63;
+  color: #ffffff;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.game-info button.restart:hover {
+  background-color: #ad1457;
+}
+
+.status-above-board {
+  font-size: 32px; 
+  font-weight: bold; 
+  margin-bottom: 10px;
+}
+
+.winner {
+  background-color: #ffd700;
+  color: #000;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+.winner .status-above-board {
+  font-size: 36px;
+  font-weight: bold;
+  animation: confetti 1s ease infinite; 
+}
+
+@keyframes confetti {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
