@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 
+// Componenta Square reprezintă fiecare pătrat de pe tablă.
 function Square({ value, onSquareClick, winning }) {
   return (
     <button className={`square ${winning ? 'winning-square' : ''}`} onClick={onSquareClick}>
@@ -9,26 +10,34 @@ function Square({ value, onSquareClick, winning }) {
   );
 }
 
+// Componenta Board gestionează logica pentru afișarea pătratelor și click-urile utilizatorului.
 function Board({ xIsNext, squares, onPlay, winnerLine }) {
+  // Functie care gestionează click-ul pe un pătrat.
   function handleClick(i) {
+    // Dacă avem un câștigător, pătratul este deja ocupat sau nu este rândul lui X, nu face nimic.
     if (winnerLine || squares[i] || !xIsNext) {
       return;
     }
 
+    // Creează o nouă copie a pătratelor și adaugă 'X' la poziția specificată.
     const nextSquares = squares.slice();
     nextSquares[i] = 'X'; 
     onPlay(nextSquares);
   }
 
+  // Utilizare useEffect pentru a gestiona mutarea calculatorului.
   useEffect(() => {
     if (!xIsNext) {
       const timerId = setTimeout(() => {
+        // Găsește toate pătratele goale.
         const emptySquares = squares.reduce((acc, val, index) => (val === null ? acc.concat(index) : acc), []);
+        // Alege un pătrat gol aleatoriu pentru mutarea calculatorului.
         const randomIndex = Math.floor(Math.random() * emptySquares.length);
         const computerMove = emptySquares[randomIndex];
         const nextSquares = squares.slice();
         nextSquares[computerMove] = 'O';
 
+        // Verifică dacă mutarea calculatorului câștigă jocul.
         const computerWinner = calculateWinner(nextSquares);
         if (computerWinner) {
           onPlay(nextSquares, computerWinner);
@@ -62,22 +71,26 @@ function Board({ xIsNext, squares, onPlay, winnerLine }) {
   );
 }
 
+// Componenta principală Game gestionează starea jocului și logica generală.
 function Game() {
   const [history, setHistory] = useState([Array(9).fill(null)]);
   const [currentMove, setCurrentMove] = useState(0);
   const [xIsNext, setXIsNext] = useState(true);
 
+  // Functie pentru a gestiona o mutare și a actualiza starea jocului.
   function handlePlay(nextSquares, winner) {
     const newHistory = history.slice(0, currentMove + 1);
     setHistory([...newHistory, nextSquares]);
     setCurrentMove(newHistory.length);
     setXIsNext(!xIsNext); 
 
+    // Dacă avem un câștigător sau remiză, nu mai continua.
     if (winner || calculateWinner(nextSquares) || currentMove === 8) {
       return;
     }
   }
 
+  // Functie pentru a reseta jocul.
   function restartGame() {
     setHistory([Array(9).fill(null)]);
     setCurrentMove(0);
@@ -88,6 +101,7 @@ function Game() {
   const winner = calculateWinner(currentSquares);
   const winnerLine = winner ? getWinnerLine(currentSquares, winner) : null;
 
+  // Determină starea jocului: câștigător, remiză sau următorul jucător.
   let status;
   if (winner) {
     status = `Winner: ${winner}`;
@@ -116,6 +130,7 @@ function Game() {
   );
 }
 
+// Functie pentru a determina dacă există un câștigător.
 function calculateWinner(squares) {
   const lines = [
     [0, 1, 2],
@@ -137,6 +152,7 @@ function calculateWinner(squares) {
   return null;
 }
 
+// Functie pentru a obține linia câștigătoare.
 function getWinnerLine(squares, winner) {
   const lines = [
     [0, 1, 2],
