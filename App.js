@@ -14,7 +14,7 @@ function Square({ value, onSquareClick, winning }) {
 function Board({ xIsNext, squares, onPlay, winnerLine }) {
   // Functie care gestionează click-ul pe un pătrat.
   function handleClick(i) {
-    // Dacă avem un câștigător, pătratul este deja ocupat sau nu este rândul lui X, nu face nimic.
+    // Dacă este un câștigător, pătratul este deja ocupat sau nu este rândul lui X, nu face nimic.
     if (winnerLine || squares[i] || !xIsNext) {
       return;
     }
